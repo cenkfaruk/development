@@ -1,12 +1,15 @@
 package com.example.cenk.flickralbum.classes.java.Helpers;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Custom object to map every paratameter of api response
- *
+ *Class is parcelable for easy store and easy transfer
  * Created by Cenk on 25.03.2017.
  */
 
-public class PhotoItem {
+public class PhotoItem implements Parcelable {
     private int mFarmId;
     private String mServerId;// Id of the server that photo comes from
     private String mPhotoId;// If of the photo
@@ -68,4 +71,37 @@ public class PhotoItem {
     public String getFlickrImageLink(){
        return "https://farm"+mFarmId+".staticflickr.com/"+ mServerId +"/"+mPhotoId+"_"+ mSecretId +"_"+ mSize +".jpg";
     }
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    public PhotoItem(Parcel in){
+        mFarmId=in.readInt();
+        mServerId=in.readString();
+        mPhotoId=in.readString();
+        mSecretId=in.readString();
+        mSize=in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mFarmId);
+        dest.writeString(mServerId);
+        dest.writeString(mPhotoId);
+        dest.writeString(mSecretId);
+        dest.writeString(mSize);
+    }
+
+    public static final Parcelable.Creator<PhotoItem> CREATOR = new Parcelable.Creator<PhotoItem>() {
+                @Override
+                public PhotoItem createFromParcel(Parcel source) {
+                    return new PhotoItem(source);
+                }
+                @Override
+                public PhotoItem[] newArray(int size) {
+                    return new PhotoItem[size];
+                }
+            };
 }

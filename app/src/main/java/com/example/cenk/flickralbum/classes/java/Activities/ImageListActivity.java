@@ -5,40 +5,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import com.example.cenk.flickralbum.R;
 import com.example.cenk.flickralbum.classes.java.Adapters.PhotoAdapter;
-import com.example.cenk.flickralbum.classes.java.Helpers.NameValuePair;
 import com.example.cenk.flickralbum.classes.java.Helpers.PhotoItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ImageListActivity extends AppCompatActivity {
-    private List<PhotoItem> photoItems;// List of PhotoItem
+    private ArrayList<PhotoItem> photoItems;// List of PhotoItem
     private PhotoAdapter    photoAdapter;// Custom adapter for photoRecyclerView.
     private RecyclerView  photoRecyclerView;//photo container.
+    private int numberOfColumns=3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_list);
         photoItems= new ArrayList<>();
+        //Get api response from previous activity
         String apiResponse=getIntent().getStringExtra("response");
+        //Parse response to list of PhotoItem
         parseJsonIntoList(apiResponse);
+
+        //set adapter and settings of RecyclerView
         photoAdapter = new PhotoAdapter(ImageListActivity.this,photoItems);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(),numberOfColumns);
         photoRecyclerView = (RecyclerView) findViewById(R.id.photo_recyle_list);
         photoRecyclerView.setLayoutManager(mLayoutManager);
         photoRecyclerView.setItemAnimator(new DefaultItemAnimator());
         photoRecyclerView.setAdapter(photoAdapter);
-
-
     }
 
 
