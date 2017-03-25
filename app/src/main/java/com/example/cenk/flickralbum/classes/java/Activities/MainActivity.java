@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.example.cenk.flickralbum.R;
 import com.example.cenk.flickralbum.classes.java.Helpers.NameValuePair;
 import com.example.cenk.flickralbum.classes.java.Helpers.ServiceConnection;
+import com.example.cenk.flickralbum.classes.java.Helpers.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,20 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    /*
-        Controls if device has internet connection and
-        produces a boolean result.
-     */
-    public static boolean isConnectted(Context _context){
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager)_context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-        //boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-        return isConnected;
-    }
 
     private void showConnectionAlert(final Context _context){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(_context);
@@ -86,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeActivityWithResponse(Context _context){
-        if(isConnectted(_context))
+        if(Tools.isConnectted(_context))
             // connects api and get response asynchronously main thread can give crash for this operation.
             new FlickrSearch().execute();
         else{

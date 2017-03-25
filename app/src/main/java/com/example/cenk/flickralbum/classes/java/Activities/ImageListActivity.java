@@ -3,7 +3,13 @@ package com.example.cenk.flickralbum.classes.java.Activities;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.example.cenk.flickralbum.R;
+import com.example.cenk.flickralbum.classes.java.Adapters.PhotoAdapter;
 import com.example.cenk.flickralbum.classes.java.Helpers.NameValuePair;
 import com.example.cenk.flickralbum.classes.java.Helpers.PhotoItem;
 
@@ -14,15 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImageListActivity extends AppCompatActivity {
-    private List<PhotoItem> photo_items;// List of PhotoItem
+    private List<PhotoItem> photoItems;// List of PhotoItem
+    private PhotoAdapter    photoAdapter;// Custom adapter for photoRecyclerView.
+    private RecyclerView  photoRecyclerView;//photo container.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_list);
-        photo_items= new ArrayList<>();
+        photoItems= new ArrayList<>();
         String apiResponse=getIntent().getStringExtra("response");
         parseJsonIntoList(apiResponse);
+        photoAdapter = new PhotoAdapter(ImageListActivity.this,photoItems);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(),3);
+        photoRecyclerView = (RecyclerView) findViewById(R.id.photo_recyle_list);
+        photoRecyclerView.setLayoutManager(mLayoutManager);
+        photoRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        photoRecyclerView.setAdapter(photoAdapter);
 
 
     }
@@ -43,7 +57,7 @@ public class ImageListActivity extends AppCompatActivity {
             JSONArray photos=photo.getJSONArray("photo");//JsonArray that contains list of photo information.
             for(int i=0;i<photos.length();i++){
                 JSONObject currPhoto=(JSONObject)photos.get(i);//Specific JasonObject that contains photo info.
-                photo_items.add(new PhotoItem(currPhoto.getInt("farm"),
+                photoItems.add(new PhotoItem(currPhoto.getInt("farm"),
                                               currPhoto.getString("server"),
                                               currPhoto.getString("id"),
                                               currPhoto.getString("secret"),

@@ -66,6 +66,6 @@ public class PhotoItem {
     Combines all paramters to generate url of specific image
      */
     public String getFlickrImageLink(){
-       return "https://farm"+mFarmId+".staticflickr.com/"+ mServerId +"/"+mPhotoId+"_"+ mSecretId +"_"+ mSize +".png";
+       return "https://farm"+mFarmId+".staticflickr.com/"+ mServerId +"/"+mPhotoId+"_"+ mSecretId +"_"+ mSize +".jpg";
     }
 }
