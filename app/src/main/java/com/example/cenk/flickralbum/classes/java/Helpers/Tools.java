@@ -11,6 +11,10 @@ import android.net.NetworkInfo;
  */
 
 public class Tools {
+    public static String API_KEY="dd5a1757d9bddb6eeaf1ae88485b6086";// Api key of the app taken from Flickr
+    public static String SECRET_KEY="07ae2971d28058b0";//Secret key of the app taken fromFlickr
+    public static final String SEARCH = "flickr.photos.search" ;// Search method link from Flickr.
+    public static final String BASE_URL="https://api.flickr.com/services/rest/"; // Base url of rest api.
     /*
       Controls if device has internet connection and
       produces a boolean result.

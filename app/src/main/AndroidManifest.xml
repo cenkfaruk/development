@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".classes.java.Activities.MainActivity"
+            android:name=".classes.java.Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -29,7 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".classes.java.Activities.ImageListActivity" />
+        <activity
+            android:name=".classes.java.Activities.ImageListActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".classes.java.Activities.PhotoDetailActivity"></activity>
     </application>
 
