@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Flickr Fashion</string>
+    <string name="app_name">Flickr Photos</string>
     <string name="connection_retry">Retry</string>
 </resources>
