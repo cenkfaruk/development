@@ -44,6 +44,7 @@
         android:layout_marginRight="0dp"
         android:layout_centerVertical="true"
         app:srcCompat="@mipmap/share"
+        android:onClick="onSharePhoto"
         android:visibility="gone"/>
 
     <RelativeLayout
